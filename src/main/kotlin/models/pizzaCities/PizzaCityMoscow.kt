@@ -1,4 +1,4 @@
-package models
+package models.pizzaCities
 
 import contracts.CheckPhoto
 import contracts.PizzaCity
@@ -26,7 +26,7 @@ class PizzaCityMoscow(
 
     override fun showCheckPhoto() {
         println("У вас есть фотография чека?")
-        println("1. Да\n 2. Нет")
+        println("1. Да\n2. Нет")
         if (readln() == "1") {
             println("Вам будет скидка 50 рублей с покупки")
             checkCount++
@@ -34,20 +34,33 @@ class PizzaCityMoscow(
         }
     }
 
-    override fun neapolitanPizzaSale() {
-        super.neapolitanPizzaSale()
+    override fun neapolitanPizzaSale(): String {
         println("Спасибо за покупу неаполитанской пиццы в Москве!")
+        return super.neapolitanPizzaSale()
     }
-    override fun romanPizzaSale() {
-        super.romanPizzaSale()
+
+    override fun romanPizzaSale(): String {
         println("Спасибо за покупу римской пиццы в Москве!")
+        return super.romanPizzaSale()
     }
-    override fun sicilianPizzaSale() {
-        super.sicilianPizzaSale()
+
+    override fun sicilianPizzaSale(): String {
         println("Спасибо за покупу сицилианской пиццы в Москве!")
+        return super.sicilianPizzaSale()
     }
-    override fun tyroleanPizzaSale() {
-        super.tyroleanPizzaSale()
+
+    override fun tyroleanPizzaSale(): String {
         println("Спасибо за покупу тирольсокй пиццы в Москве!")
+        return super.tyroleanPizzaSale()
+    }
+
+    override fun showSpecialStatistics() {
+        println("Показано чеков $checkCount")
+        if (customerCount != 0) {
+            println(
+                "Соотношение людей, которых показывают фотографию чека к тем, которые не показывают:" +
+                        " ${(checkCount.toDouble() / customerCount.toDouble()) * 100}%"
+            )
+        }
     }
 }

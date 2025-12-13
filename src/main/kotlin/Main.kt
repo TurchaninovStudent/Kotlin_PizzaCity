@@ -1,8 +1,10 @@
 import contracts.CheckPhoto
-import contracts.Drink
+import contracts.DrinkSale
 import contracts.PizzaCity
-import models.PizzaCityMoscow
-import models.PizzaCityPeter
+import contracts.SouceSale
+import models.pizzaCities.PizzaCityMoscow
+import models.pizzaCities.PizzaCityPeter
+import models.pizzaCities.PizzaCityRostov
 import kotlin.system.exitProcess
 
 fun main() {
@@ -15,38 +17,52 @@ fun main() {
         215.0, 250.0,
         180.5, 240.0
     )
+
+    val pizzaRostov = PizzaCityRostov(
+        235.0, 150.0,
+        140.5, 200.0
+    )
+
     while (true) {
-        println("Добрый день! Выберите город")
-        println("1. Москва \n2. Санкт-Петербург \n3. Выход из программы")
+        println("\nДобрый день! Выберите город")
+        println("1. Москва \n2. Санкт-Петербург \n3. Ростов на дону \n4. Выход из программы")
 
         val currentPizzaCity: PizzaCity = when (readln()) {
             "1" -> pizzaMoscow
             "2" -> pizzaPeter
-            "3" -> break
+            "3" -> pizzaRostov
+            "4" -> break
             else -> {
                 println("Неправильный ввод данных")
                 continue
             }
         }
 
-        println("Выберите пиццу:")
+        println("\nВыберите пиццу:")
         println("1. Неполитанская пицца \n2. Римская пицца \n3. Сицилийская пицца \n4. Тирольская пицца \n0. Показать статистику")
 
         selectPizza(currentPizzaCity)
     }
 }
 
-fun selectAddditionalService(currentPizzaCity: PizzaCity) {
-    when (currentPizzaCity) {
-        is CheckPhoto -> currentPizzaCity.showCheckPhoto()
-        is Drink -> currentPizzaCity.drinkSale()
+fun selectAdditionalService(currentPizzaCity: PizzaCity, selectedPizza: String) {
+    if (currentPizzaCity is CheckPhoto) {
+        currentPizzaCity.showCheckPhoto()
+    }
+
+    if (currentPizzaCity is DrinkSale) {
+        currentPizzaCity.drinkSale(selectedPizza)
+    }
+
+    if (currentPizzaCity is SouceSale) {
+        currentPizzaCity.souceSale()
     }
 }
 
 fun selectPizza(currentPizzaCity: PizzaCity) {
     val choice = readln()
 
-    when (choice) {
+    val chosenPizza = when (choice) {
         "1" -> currentPizzaCity.neapolitanPizzaSale()
         "2" -> currentPizzaCity.romanPizzaSale()
         "3" -> currentPizzaCity.sicilianPizzaSale()
@@ -58,6 +74,6 @@ fun selectPizza(currentPizzaCity: PizzaCity) {
         }
     }
     if (choice != "0") {
-        selectAddditionalService(currentPizzaCity)
+        selectAdditionalService(currentPizzaCity, chosenPizza.toString())
     }
 }

@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d421bb4-d1e9-4b9d-bfdc-737d030d1f3b" name="Changes" comment="init">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/contracts/CheckPhoto.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/contracts/Drink.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/models/PizzaCityMoscow.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/models/PizzaCityPeter.kt" afterDir="false" />
+    <list default="true" id="8d421bb4-d1e9-4b9d-bfdc-737d030d1f3b" name="Changes" comment="made up to 5th + 7">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/contracts/SouceSale.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/models/foods/Souce.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/models/pizzaCities/PizzaCityPeter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/models/pizzaCities/PizzaCityRostov.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/models/PizzaCity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/contracts/PizzaCity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/contracts/Drink.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/contracts/DrinkSale.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/contracts/PizzaCity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/contracts/PizzaCity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/models/PizzaCityMoscow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/models/pizzaCities/PizzaCityMoscow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/models/PizzaCityPeter.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Class" />
         <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -49,6 +52,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="models.PizzaCities" />
       <recent name="contracts" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
@@ -72,11 +76,19 @@
       <option name="project" value="LOCAL" />
       <updated>1764420540681</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="made up to 5th + 7">
+      <created>1765015890672</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1765015890672</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="made up to 5th + 7" />
+    <option name="LAST_COMMIT_MESSAGE" value="made up to 5th + 7" />
   </component>
 </project>

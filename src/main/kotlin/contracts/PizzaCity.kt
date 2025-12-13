@@ -1,7 +1,7 @@
 package contracts
 
 /**
- * Базовая пиццерия
+ * Базовая пиццерия, продающая следующие пиццы:
  * @param neapolitanPizzaPrice цена неаполитанской пиццы
  * @param romanPizzaPrice цена римской пиццы
  * @param sicilianPizzaPrice цена сицилианской пиццы
@@ -20,22 +20,31 @@ abstract class PizzaCity(
     var tyroleanPizzaCount = 0
     var additionalPrice = 0.0
 
-    open fun neapolitanPizzaSale() {
+    open fun neapolitanPizzaSale(): String {
         customerCount++
         neapolitanPizzaCount++
+        return "Неаполитанская пицца"
     }
-    open fun romanPizzaSale() {
+
+    open fun romanPizzaSale(): String {
         customerCount++
         romanPizzaCount++
+        return "Римская пицца"
     }
-    open fun sicilianPizzaSale() {
+
+    open fun sicilianPizzaSale(): String {
         customerCount++
         sicilianPizzaCount
+        return "Сицилийская пицца"
+
     }
-    open fun tyroleanPizzaSale() {
+    open fun tyroleanPizzaSale(): String {
         customerCount++
         tyroleanPizzaCount++
+        return "Тирольская пицца"
     }
+
+    open fun showSpecialStatistics() { }
 
     fun showStatistics() {
         println("Продано сицилийскокй пиццы: $sicilianPizzaCount")
@@ -43,18 +52,7 @@ abstract class PizzaCity(
         println("Продано римской пиццы: $romanPizzaCount")
         println("Продано тирольской пиццы: $tyroleanPizzaCount")
 
-        when(this) {
-            is Drink -> {
-                println("Продано напитков $drinkCount")
-                println("Соотношение людей, которых покупают напитков к тем, которые отказываются:" +
-                        " ${(drinkCount.toDouble() / customerCount.toDouble()) * 100}%")
-            }
-            is CheckPhoto -> {
-                println("Показано чеков $checkCount")
-                println("Соотношение людей, которых показывают фотографию чека к тем, которые не показывают:" +
-                        " ${(checkCount.toDouble() / customerCount.toDouble()) * 100}%")
-            }
-        }
+        showSpecialStatistics()
 
         val money = neapolitanPizzaPrice * neapolitanPizzaCount +
                 sicilianPizzaPrice * sicilianPizzaCount +
