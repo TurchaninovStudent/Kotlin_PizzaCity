@@ -34,7 +34,7 @@ abstract class PizzaCity(
 
     open fun sicilianPizzaSale(): String {
         customerCount++
-        sicilianPizzaCount
+        sicilianPizzaCount++
         return "Сицилийская пицца"
 
     }
@@ -47,6 +47,8 @@ abstract class PizzaCity(
     open fun showSpecialStatistics() { }
 
     fun showStatistics() {
+        println("-----------СТАТИСТИКА-----------")
+
         println("Продано сицилийскокй пиццы: $sicilianPizzaCount")
         println("Продано неаполитанской пиццы: $neapolitanPizzaCount")
         println("Продано римской пиццы: $romanPizzaCount")
@@ -59,6 +61,6 @@ abstract class PizzaCity(
                 romanPizzaPrice * romanPizzaCount +
                 tyroleanPizzaPrice * tyroleanPizzaCount + additionalPrice
 
-        println("Всего заработано денег: $money")
+        println("\nВсего заработано денег: $money")
     }
 }

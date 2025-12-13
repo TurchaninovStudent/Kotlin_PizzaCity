@@ -1,10 +1,10 @@
 package models.pizzaCities
 
-import contracts.DrinkSale
-import contracts.CheckPhoto
+import interfaces.DrinkSale
+import interfaces.CheckPhoto
 import contracts.PizzaCity
-import contracts.SouceSale
-import models.foods.Souce
+import interfaces.SauceSale
+import models.foods.Sauce
 import kotlin.system.exitProcess
 
 /**
@@ -24,63 +24,69 @@ class PizzaCityRostov(
     romanPizzaPrice,
     sicilianPizzaPrice,
     tyroleanPizzaPrice
-), DrinkSale, CheckPhoto, SouceSale {
+), DrinkSale, CheckPhoto, SauceSale {
     override var drinkCount: Int = 0
+    override var drinkSold: Double = 0.0
     override var drinkPrice: Double = 200.0
     override var drinkPizzaMap: MutableMap<String, Int> = mutableMapOf()
-    override var souceSaleMap: MutableMap<Souce, Double> = mutableMapOf()
+    override var sauceSaleMap: MutableMap<Sauce, Double> = mutableMapOf()
 
     override var checkCount: Int = 0
+    override var checkSold: Double = 0.0
     override var checkSale: Double = 50.0
 
-    override var avaibleSouces: List<Souce> = listOf(
-        Souce("Кетчуп", 60.0),
-        Souce("Майонез", 50.0)
+    override var sauceCount: Int = 0
+    override var saucesSold: Double = 0.0
+
+    override var availableSauces: List<Sauce> = listOf(
+        Sauce("Кетчуп", 60.0),
+        Sauce("Майонез", 50.0)
     )
 
-    override var souceCount: Int = 0
-
-    override fun souceSale() {
+    override fun offerSauce() {
         println("Вы будете соус?")
         println("1. Да\n2. Нет")
 
-        //TODO: сделать от списка avaibleSouces а не вручную
+        //TODO: сделать от списка availableSauces а не вручную
         if (readln() == "1") {
             println("Какой именно?")
             println("1. Кетчуп\n2. Майонез")
 
-            val chosenSouce = when (readln()) {
-                "1" -> avaibleSouces[0]
-                "2" -> avaibleSouces[1]
+            val chosenSauce = when (readln()) {
+                "1" -> availableSauces[0]
+                "2" -> availableSauces[1]
                 else -> {
                     println("Неправильный ввод данных")
                     exitProcess(1)
                 }
             }
 
-            souceCount++
-            additionalPrice += chosenSouce.price
-            incrementSaleForSouce(chosenSouce)
+            sauceCount++
+            additionalPrice += chosenSauce.price
+            saucesSold += chosenSauce.price
+            incrementSaleForSauce(chosenSauce)
         }
     }
 
-    override fun showCheckPhoto() {
+    override fun offerCheckPhoto() {
         println("У вас есть фотография чека?")
         println("1. Да\n2. Нет")
         if (readln() == "1") {
             println("Вам будет скидка 50 рублей с покупки")
             checkCount++
             additionalPrice -= checkSale
+            checkSold += checkSale
         }
     }
 
-    override fun drinkSale(pizza: String) {
+    override fun offerDrink(pizza: String) {
         println("Вы будете кофе?")
         println("1. Да\n2. Нет")
         if (readln() == "1") {
             println("С вас 200 руб.")
             drinkCount++
             additionalPrice += drinkPrice
+            drinkSold += drinkPrice
             incrementAmountForPizza(pizza)
         }
     }
@@ -106,33 +112,43 @@ class PizzaCityRostov(
     }
 
     override fun showSpecialStatistics() {
-        println("Количество проданных соусов: $souceCount")
+        println("Количество проданных соусов: $sauceCount")
         println("Выручка за каждый соус: ")
-
-        for ((key, value) in souceSaleMap) {
-            println("${key.name} = $value")
+        if (sauceSaleMap.isNotEmpty()) {
+            for ((key, value) in sauceSaleMap) {
+                println("* ${key.name} = $value")
+            }
         }
 
+        println("В сумме: $saucesSold")
+
         println("Показано чеков: $checkCount")
+        println("Общая сумма скидки $checkSold")
         if (customerCount != 0) {
             println(
                 "Соотношение людей, которых показывают фотографию чека к тем, которые не показывают:" +
                         " ${(checkCount.toDouble() / customerCount.toDouble()) * 100}%"
             )
         }
-        println("\nПродано напитков: $drinkCount")
-        println("\nСоотношение людей, которых покупают напитков к тем, которые отказываются:" +
-                " ${(drinkCount.toDouble() / customerCount.toDouble()) * 100}%")
-
-        println("\nТоп пицц, к которым покупают напитки: ")
-        println("\nВ количественном соотношении: ")
-        for ((key, value) in drinkPizzaMap) {
-            println("$key = $value")
+        println("Продано напитков: $drinkCount")
+        println("Общая сумма выручки с напитков $drinkSold")
+        if (customerCount != 0) {
+            println(
+                "Соотношение людей, которых покупают напитков к тем, которые отказываются:" +
+                        " ${(drinkCount.toDouble() / customerCount.toDouble()) * 100}%"
+            )
         }
+        if (drinkPizzaMap.isNotEmpty()) {
+            println("Топ пицц, к которым покупают напитки: ")
+            println("\nВ количественном соотношении: ")
+            for ((key, value) in drinkPizzaMap) {
+                println("* $key = $value")
+            }
 
-        println("\nВ процентном соотношении: ")
-        for ((key, value) in drinkPizzaMap) {
-            println("$key = ${getPercentForAmount(value) * 100} %")
+            println("\nВ процентном соотношении: ")
+            for ((key, value) in drinkPizzaMap) {
+                println("* $key = ${getPercentForAmount(value) * 100} %")
+            }
         }
     }
 
@@ -144,12 +160,12 @@ class PizzaCityRostov(
         drinkPizzaMap[pizza]!!.plus(1)
     }
 
-    private fun incrementSaleForSouce(selectedSouce: Souce) {
-        if (souceSaleMap[selectedSouce] == null) {
-            souceSaleMap[selectedSouce] = selectedSouce.price
+    private fun incrementSaleForSauce(selectedSauce: Sauce) {
+        if (sauceSaleMap[selectedSauce] == null) {
+            sauceSaleMap[selectedSauce] = selectedSauce.price
         }
 
-        souceSaleMap[selectedSouce]!!.plus(selectedSouce.price)
+        sauceSaleMap[selectedSauce]!!.plus(selectedSauce.price)
     }
 
     private fun getPercentForAmount(value: Int): Double {

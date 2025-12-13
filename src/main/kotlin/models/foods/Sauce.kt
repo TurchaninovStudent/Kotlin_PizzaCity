@@ -5,4 +5,4 @@ package models.foods
  * @param name название соуса
  * @param price цена соуса
  */
-data class Souce(val name: String, val price: Double) { }
+data class Sauce(val name: String, val price: Double) { }

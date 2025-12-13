@@ -1,4 +1,4 @@
-package contracts
+package interfaces
 
 /**
  * Напиток
@@ -7,7 +7,7 @@ interface DrinkSale {
     /**
      * Продажа напитков
      */
-    fun drinkSale(pizza: String)
+    fun offerDrink(pizza: String)
 
     /**
      * Количество проданных напитков
@@ -18,6 +18,11 @@ interface DrinkSale {
      * Цена напитков
      */
     var drinkPrice: Double
+
+    /**
+     * Выручка с напитков
+     */
+    var drinkSold: Double
 
     /**
      * Словарь из пицц, к которым покупают напитки

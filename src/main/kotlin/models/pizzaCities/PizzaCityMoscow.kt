@@ -1,6 +1,6 @@
 package models.pizzaCities
 
-import contracts.CheckPhoto
+import interfaces.CheckPhoto
 import contracts.PizzaCity
 
 /**
@@ -22,14 +22,16 @@ class PizzaCityMoscow(
     tyroleanPizzaPrice
 ), CheckPhoto {
     override var checkCount: Int = 0
+    override var checkSold: Double = 0.0
     override var checkSale: Double = 50.0
 
-    override fun showCheckPhoto() {
+    override fun offerCheckPhoto() {
         println("У вас есть фотография чека?")
         println("1. Да\n2. Нет")
         if (readln() == "1") {
             println("Вам будет скидка 50 рублей с покупки")
             checkCount++
+            checkSold += checkSale
             additionalPrice -= checkSale
         }
     }
@@ -56,6 +58,7 @@ class PizzaCityMoscow(
 
     override fun showSpecialStatistics() {
         println("Показано чеков $checkCount")
+        println("Общая сумма скидки $checkSold")
         if (customerCount != 0) {
             println(
                 "Соотношение людей, которых показывают фотографию чека к тем, которые не показывают:" +

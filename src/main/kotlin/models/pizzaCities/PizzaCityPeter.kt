@@ -1,6 +1,6 @@
 package models.pizzaCities
 
-import contracts.DrinkSale
+import interfaces.DrinkSale
 import contracts.PizzaCity
 
 /**
@@ -22,16 +22,18 @@ class PizzaCityPeter(
     tyroleanPizzaPrice
 ), DrinkSale {
     override var drinkCount: Int = 0
+    override var drinkSold: Double = 0.0
     override var drinkPrice: Double = 200.0
     override var drinkPizzaMap: MutableMap<String, Int> = mutableMapOf()
 
-    override fun drinkSale(pizza: String) {
+    override fun offerDrink(pizza: String) {
         println("Вы будете кофе?")
         println("1. Да\n2. Нет")
         if (readln() == "1") {
             println("С вас 200 руб.")
             drinkCount++
             additionalPrice += drinkPrice
+            drinkSold += drinkPrice
             incrementAmountForPizza(pizza)
         }
     }
@@ -57,19 +59,26 @@ class PizzaCityPeter(
     }
 
     override fun showSpecialStatistics() {
-        println("\nПродано напитков $drinkCount")
-        println("\nСоотношение людей, которых покупают напитков к тем, которые отказываются:" +
-                " ${(drinkCount.toDouble() / customerCount.toDouble()) * 100}%")
-
-        println("\nТоп пицц, к которым покупают напитки: ")
-        println("\nВ количественном соотношении: ")
-        for ((key, value) in drinkPizzaMap) {
-            println("$key = $value")
+        println("Продано напитков $drinkCount")
+        println("Общая сумма выручки $drinkSold")
+        if (customerCount != 0) {
+            println(
+                "Соотношение людей, которых покупают напитков к тем, которые отказываются:" +
+                        " ${(drinkCount.toDouble() / customerCount.toDouble()) * 100}%"
+            )
         }
 
-        println("\nВ процентном соотношении: ")
-        for ((key, value) in drinkPizzaMap) {
-            println("$key = ${getPercentForAmount(value) * 100} %")
+        if (drinkPizzaMap.isNotEmpty()) {
+            println("Топ пицц, к которым покупают напитки: ")
+            println("\nВ количественном соотношении: ")
+            for ((key, value) in drinkPizzaMap) {
+                println("* $key = $value")
+            }
+
+            println("\nВ процентном соотношении: ")
+            for ((key, value) in drinkPizzaMap) {
+                println("* $key = ${getPercentForAmount(value) * 100} %")
+            }
         }
     }
 
